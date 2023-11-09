@@ -100,12 +100,6 @@ Form {
 				label:		qsTr("Additional info")
 				checked:	true
 			}
-
-			CIField
-			{
-				name:		"priorAndPosteriorPlotCiLevel"
-				label:		qsTr("Credible interval")
-			}
 		}
 	}
 
