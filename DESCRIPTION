@@ -1,7 +1,7 @@
-Package: jaspModule
+Package: jaspBFF
 Type: Package
-Title: A module for JASP
-Version: 0.1.0
+Title: A Bayes factor function module for JASP
+Version: 0.8.0
 Date: 2020-10-15
 Author: JASP Team
 Website: jasp-stats.org
@@ -17,3 +17,4 @@ Suggests:
 Remotes:
   jasp-stats/jaspBase,
   jasp-stats/jaspGraphs
+RoxygenNote: 7.2.3
