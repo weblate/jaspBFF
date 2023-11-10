@@ -79,6 +79,9 @@ bffAnalysis <- function(jaspResults, dataset, options, test) {
       r           = .bffGetR(options, singleStudy = nrow(dataset) == 1),
       omega       = NULL))
 
+  # TODO: quick fix
+  fit$omega <- 0.2
+
   jaspResults[["fit"]]$object <- fit
 
   return()
@@ -221,7 +224,7 @@ bffAnalysis <- function(jaspResults, dataset, options, test) {
   summaryTable$addRows(list(
     n       = nrow(dataset),
     bf      = .recodeBFtype(bfOld = fit[["log_bf"]], newBFtype = options[["bayesFactorType"]], oldBFtype = "LogBF10"),
-    atOmega = options[["omega"]]
+    atOmega = fit[["omega"]]
   ))
 
   if (options[["priorR"]] == "automatic")
@@ -261,7 +264,7 @@ bffAnalysis <- function(jaspResults, dataset, options, test) {
   omegaTable$addRows(list(
     n       = nrow(dataset),
     bf      = .recodeBFtype(bfOld = fit[["log_bf"]], newBFtype = options[["bayesFactorType"]], oldBFtype = "LogBF10"),
-    atOmega = options[["omega"]]
+    atOmega = options[["bayesFactorAtOmegaValue"]]
   ))
 
   if (options[["priorR"]] == "automatic")
@@ -293,12 +296,12 @@ bffAnalysis <- function(jaspResults, dataset, options, test) {
   if (isTryError(fit))
     bayesFactorFunctionPlot$setError(fit)
 
-  tempPlot <- plot(fit)
+  tempPlot <- plot.BFF(fit)
 
-  if (isTryError(fitPlot))
-    bayesFactorFunctionPlot$setError(fitPlot)
+  if (isTryError(tempPlot))
+    bayesFactorFunctionPlot$setError(tempPlot)
 
-  bayesFactorFunctionPlot$plotObject <- tempPlot + jaspGraphs::themeJaspRaw() + jaspGraphs::geom_rangeframe()
+  bayesFactorFunctionPlot$plotObject <- tempPlot #+ jaspGraphs::themeJaspRaw() + jaspGraphs::geom_rangeframe()
 
   return()
 }
@@ -328,8 +331,8 @@ bffAnalysis <- function(jaspResults, dataset, options, test) {
 
   tempPlot <- posterior_plot(fit, prior = TRUE)
 
-  if (isTryError(fitPlot))
-    priorAndPosteriorPlot$setError(fitPlot)
+  if (isTryError(tempPlot))
+    priorAndPosteriorPlot$setError(tempPlot)
 
   priorAndPosteriorPlot$plotObject <- tempPlot + jaspGraphs::themeJaspRaw() + jaspGraphs::geom_rangeframe()
 
