@@ -401,7 +401,7 @@ bffAnalysis <- function(jaspResults, dataset, options, test) {
     "ANOVA"       = gettext("ANOVA Bayes Factor Function"),
     "binomial"    = gettext("Binomial Test Bayes Factor Function"),
     "AB"          = gettext("A/B T-Test Bayes Factor Function")
-  ))
+  ), width = 450, height = 400)
   bayesFactorFunctionPlot$dependOn(c(
     .bffGetDependencies(options),
     "plotBayesFactorFunction", "plotBayesFactorFunctionAdditionalInfo"))
@@ -426,7 +426,9 @@ bffAnalysis <- function(jaspResults, dataset, options, test) {
     return()
   }
 
-  bayesFactorFunctionPlot$plotObject <- tempPlot #+ jaspGraphs::themeJaspRaw() + jaspGraphs::geom_rangeframe()
+  bayesFactorFunctionPlot$plotObject <- tempPlot +
+    jaspGraphs::themeJaspRaw() +
+    jaspGraphs::geom_rangeframe()
 
   return()
 }
@@ -453,7 +455,7 @@ bffAnalysis <- function(jaspResults, dataset, options, test) {
     return()
   }
 
-  tempPlot <- BFF::posterior_plot(fit, prior = TRUE)
+  tempPlot <- try(BFF::posterior_plot(fit, prior = TRUE))
 
   if (isTryError(tempPlot)) {
     priorAndPosteriorPlot$setError(tempPlot)
