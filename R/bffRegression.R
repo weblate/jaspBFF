@@ -17,8 +17,8 @@
 
 
 #' @export
-bffIndependentSamplesTTest <- function(jaspResults, dataset, options) {
+bffRegression <- function(jaspResults, dataset, options) {
 
-  options[["test"]] <- "ISTT"
+  options[["test"]] <- "regression"
   bffAnalysis(jaspResults, dataset, options)
 }

@@ -1,19 +1,25 @@
 #' @import jaspBase
 
 # `options[["test"]]` contains information for dispatching in the generic analysis
-# "ISTT" = Independent samples t-test
+# "OSZT"        = One samples z-test
+# "ISZT"        = Independent samples z-test
+# "OSTT"        = One samples t-test
+# "ISTT"        = Independent samples t-test
+# "correlation" = correlation
+# "regression"  = regression
+# "ANOVA"       = ANOVA
+# "binomial"    = binomial t-test
+# "AB"          = A/B test
 
 bffAnalysis <- function(jaspResults, dataset, options, test) {
-
-  saveRDS(options, file = "C:/JASP/options.RDS")
-  saveRDS(dataset, file = "C:/JASP/dataset.RDS")
 
   # load data and fit Bayes factor function
   if (.bffReady(options)) {
     dataset <- .bffReadDataset(dataset, options)
     .bffFitBFF(jaspResults, dataset, options)
   }
-
+  saveRDS(options, file = "C:/JASP/options.RDS")
+  saveRDS(dataset, file = "C:/JASP/dataset.RDS")
   # default summary table
   .bffSummaryTable(jaspResults, dataset, options)
 
@@ -39,7 +45,15 @@ bffAnalysis <- function(jaspResults, dataset, options, test) {
   dependenciesGlobal <- c("alternativeHypothesis", "priorR", "priorRManualValue")
   dependenciesTest   <- switch(
     options[["test"]],
-    "ISTT" = c("tStatistic", "sampleSizeGroup1", "sampleSizeGroup2")
+    "OSZT"        = c("zStatistic", "sampleSize"),
+    "OSTT"        = c("tStatistic", "sampleSize"),
+    "ISZT"        = c("zStatistic", "sampleSizeGroup1", "sampleSizeGroup2"),
+    "ISTT"        = c("tStatistic", "sampleSizeGroup1", "sampleSizeGroup2"),
+    "correlation" = c("tStatistic", "sampleSize"),
+    "regression"  = c("tStatistic", "degreesOfFreedom"),
+    "ANOVA"       = c("fStatistic", "degreesOfFreedom1", "degreesOfFreedom2"),
+    "binomial"    = c("zStatistic", "sampleSize"),
+    "AB"          = c("chiqsrStatistic", "degreesOfFreedom")
   )
 
   return(c(dependenciesGlobal, dependenciesTest))
@@ -60,6 +74,80 @@ bffAnalysis <- function(jaspResults, dataset, options, test) {
     "less"     = "less"
   ))
 }
+.bffFitBFFFunction           <- function(dataset, options, fixedOmega = FALSE) {
+
+  if (options[["test"]] == "OSZT")
+    fit <- try(z_test_BFF(
+      z_stat      = dataset[[options[["zStatistic"]]]],
+      one_sample  = TRUE,
+      alternative = .bffGetAlternativeHypothesis(options),
+      n           = dataset[[options[["sampleSize"]]]],
+      r           = .bffGetR(options, singleStudy = nrow(dataset) == 1),
+      omega       = if (fixedOmega) options[["bayesFactorAtOmegaValue"]] else NULL))
+  else if (options[["test"]] == "OSTT")
+    fit <- try(t_test_BFF(
+      t_stat      = dataset[[options[["tStatistic"]]]],
+      one_sample  = TRUE,
+      alternative = .bffGetAlternativeHypothesis(options),
+      n           = dataset[[options[["sampleSize"]]]],
+      r           = .bffGetR(options, singleStudy = nrow(dataset) == 1),
+      omega       = if (fixedOmega) options[["bayesFactorAtOmegaValue"]] else NULL))
+  else if (options[["test"]] == "ISZT")
+    fit <- try(z_test_BFF(
+      z_stat      = dataset[[options[["zStatistic"]]]],
+      one_sample  = FALSE,
+      alternative = .bffGetAlternativeHypothesis(options),
+      n1          = dataset[[options[["sampleSizeGroup1"]]]],
+      n2          = dataset[[options[["sampleSizeGroup2"]]]],
+      r           = .bffGetR(options, singleStudy = nrow(dataset) == 1),
+      omega       = if (fixedOmega) options[["bayesFactorAtOmegaValue"]] else NULL))
+  else if (options[["test"]] == "ISTT")
+    fit <- try(t_test_BFF(
+      t_stat      = dataset[[options[["tStatistic"]]]],
+      one_sample  = FALSE,
+      alternative = .bffGetAlternativeHypothesis(options),
+      n1          = dataset[[options[["sampleSizeGroup1"]]]],
+      n2          = dataset[[options[["sampleSizeGroup2"]]]],
+      r           = .bffGetR(options, singleStudy = nrow(dataset) == 1),
+      omega       = if (fixedOmega) options[["bayesFactorAtOmegaValue"]] else NULL))
+  else if (options[["test"]] == "correlation")
+    fit <- try(correlation_BFF(
+      t_stat      = dataset[[options[["tStatistic"]]]],
+      alternative = .bffGetAlternativeHypothesis(options),
+      n           = dataset[[options[["sampleSize"]]]],
+      r           = .bffGetR(options, singleStudy = nrow(dataset) == 1),
+      omega       = if (fixedOmega) options[["bayesFactorAtOmegaValue"]] else NULL))
+  else if (options[["test"]] == "regression")
+    fit <- try(regression_BFF(
+      t_stat      = dataset[[options[["tStatistic"]]]],
+      alternative = .bffGetAlternativeHypothesis(options),
+      df          = dataset[[options[["degreesOfFreedom"]]]],
+      r           = .bffGetR(options, singleStudy = nrow(dataset) == 1),
+      omega       = if (fixedOmega) options[["bayesFactorAtOmegaValue"]] else NULL))
+  else if (options[["test"]] == "ANOVA")
+    fit <- try(ANOVA_BFF(
+      f_stat      = dataset[[options[["fStatistic"]]]],
+      df1         = dataset[[options[["degreesOfFreedom1"]]]],
+      df2         = dataset[[options[["degreesOfFreedom2"]]]],
+      r           = .bffGetR(options, singleStudy = nrow(dataset) == 1),
+      omega       = if (fixedOmega) options[["bayesFactorAtOmegaValue"]] else NULL))
+  else if (options[["test"]] == "binomial")
+    fit <- try(binomial_test_BFF(
+      z_stat      = dataset[[options[["zStatistic"]]]],
+      alternative = .bffGetAlternativeHypothesis(options),
+      n           = dataset[[options[["sampleSize"]]]],
+      r           = .bffGetR(options, singleStudy = nrow(dataset) == 1),
+      omega       = if (fixedOmega) options[["bayesFactorAtOmegaValue"]] else NULL))
+  else if (options[["test"]] == "AB")
+    fit <- try(AB_test_BFF(
+      chi2_stat   = dataset[[options[["chi2Statistic"]]]],
+      alternative = .bffGetAlternativeHypothesis(options),
+      df          = dataset[[options[["degreesOfFreedom"]]]],
+      r           = .bffGetR(options, singleStudy = nrow(dataset) == 1),
+      omega       = if (fixedOmega) options[["bayesFactorAtOmegaValue"]] else NULL))
+
+  return(fit)
+}
 .bffFitBFF                   <- function(jaspResults, dataset, options) {
 
   if(!is.null(jaspResults[["fit"]]))
@@ -68,21 +156,7 @@ bffAnalysis <- function(jaspResults, dataset, options, test) {
   fitContainer <- createJaspState()
   fitContainer$dependOn(.bffGetDependencies(options))
   jaspResults[["fit"]] <- fitContainer
-
-  if (options[["test"]] == "ISTT")
-    fit <- try(t_test_BFF(
-      t_stat      = dataset[[options[["tStatistic"]]]],
-      one_sample  = FALSE,
-      alternative = .bffGetAlternativeHypothesis(options),
-      n1          = dataset[[options[["sampleSizeGroup1"]]]],
-      n2          = dataset[[options[["sampleSizeGroup2"]]]],
-      r           = .bffGetR(options, singleStudy = nrow(dataset) == 1),
-      omega       = NULL))
-
-  # TODO: quick fix
-  fit$omega <- 0.2
-
-  jaspResults[["fit"]]$object <- fit
+  jaspResults[["fit"]]$object <- .bffFitBFFFunction(dataset, options)
 
   return()
 }
@@ -94,27 +168,22 @@ bffAnalysis <- function(jaspResults, dataset, options, test) {
   fitOmegaContainer <- createJaspState()
   fitOmegaContainer$dependOn(c(.bffGetDependencies(options), "bayesFactorAtOmegaValue"))
   jaspResults[["fitOmega"]] <- fitOmegaContainer
-
-  if (options[["test"]] == "ISTT")
-    fitOmega <- try(t_test_BFF(
-      t_stat      = dataset[[options[["tStatistic"]]]],
-      one_sample  = FALSE,
-      alternative = .bffGetAlternativeHypothesis(options),
-      n1          = dataset[[options[["sampleSizeGroup1"]]]],
-      n2          = dataset[[options[["sampleSizeGroup2"]]]],
-      r           = jaspResults[["fit"]]$object[["r"]],
-      omega       = options[["bayesFactorAtOmegaValue"]]))
-
-  jaspResults[["fitOmega"]]$object <- fitOmega
+  jaspResults[["fitOmega"]]$object <- .bffFitBFFFunction(dataset, options, fixedOmega = TRUE)
 
   return()
 }
 .bffReady                    <- function(options) {
   switch(
     options[["test"]],
-    "ISTT" =  options[["tStatistic"]] != "" &&
-      options[["sampleSizeGroup1"]] != ""  &&
-      options[["sampleSizeGroup2"]] != ""
+    "OSZT"        = options[["zStatistic"]] != "" && options[["sampleSize"]] != "",
+    "OSTT"        = options[["tStatistic"]] != "" && options[["sampleSize"]] != "",
+    "ISZT"        = options[["zStatistic"]] != "" && options[["sampleSizeGroup1"]] != ""  && options[["sampleSizeGroup2"]] != "",
+    "ISTT"        = options[["tStatistic"]] != "" && options[["sampleSizeGroup1"]] != ""  && options[["sampleSizeGroup2"]] != "",
+    "correlation" = options[["tStatistic"]] != "" && options[["sampleSize"]] != "",
+    "regression"  = options[["tStatistic"]] != "" && options[["degreesOfFreedom"]] != "",
+    "ANOVA"       = options[["fStatistic"]] != "" && options[["degreesOfFreedom1"]] != "" && options[["degreesOfFreedom2"]] != "",
+    "binomial"    = options[["zStatistic"]] != "" && options[["sampleSize"]] != "",
+    "AB"          = options[["chi2Statistic"]] != "" && options[["degreesOfFreedom"]] != ""
   )
 }
 .bffReadDataset              <- function(dataset, options) {
@@ -126,7 +195,15 @@ bffAnalysis <- function(jaspResults, dataset, options, test) {
   dataset <- .readDataSetToEnd(
     columns.as.numeric = switch(
       options[["test"]],
-      "ISTT" = c(options[["tStatistic"]], options[["sampleSizeGroup1"]], options[["sampleSizeGroup2"]])
+      "OSZT"        = c(options[["zStatistic"]], options[["sampleSize"]]),
+      "OSTT"        = c(options[["tStatistic"]], options[["sampleSize"]]),
+      "ISZT"        = c(options[["zStatistic"]], options[["sampleSizeGroup1"]] , options[["sampleSizeGroup2"]]),
+      "ISTT"        = c(options[["tStatistic"]], options[["sampleSizeGroup1"]] , options[["sampleSizeGroup2"]]),
+      "correlation" = c(options[["tStatistic"]], options[["sampleSize"]]),
+      "regression"  = c(options[["tStatistic"]], options[["degreesOfFreedom"]]),
+      "ANOVA"       = c(options[["fStatistic"]], options[["degreesOfFreedom1"]], options[["degreesOfFreedom2"]]),
+      "binomial"    = c(options[["zStatistic"]], options[["sampleSize"]]),
+      "AB"          = c(options[["chi2Statistic"]], options[["degreesOfFreedom"]])
     )
   )
 
@@ -139,7 +216,15 @@ bffAnalysis <- function(jaspResults, dataset, options, test) {
     type                         = c("negativeValues"),
     negativeValues.target        = switch(
       options[["test"]],
-      "ISTT" = c(options[["sampleSizeGroup1"]], options[["sampleSizeGroup2"]])
+      "OSZT"        = c(options[["sampleSize"]]),
+      "OSTT"        = c(options[["sampleSize"]]),
+      "ISZT"        = c(options[["sampleSizeGroup1"]] , options[["sampleSizeGroup2"]]),
+      "ISTT"        = c(options[["sampleSizeGroup1"]] , options[["sampleSizeGroup2"]]),
+      "correlation" = c(options[["sampleSize"]]),
+      "regression"  = c(options[["degreesOfFreedom"]]),
+      "ANOVA"       = c(options[["fStatistic"]], options[["degreesOfFreedom1"]], options[["degreesOfFreedom2"]]),
+      "binomial"    = c(options[["sampleSize"]]),
+      "AB"          = c(options[["chi2Statistic"]], options[["degreesOfFreedom"]])
     ),
     exitAnalysisIfErrors         = TRUE
   )
@@ -148,7 +233,15 @@ bffAnalysis <- function(jaspResults, dataset, options, test) {
     type                         = c("infinity"),
     all.target                   = switch(
       options[["test"]],
-      "ISTT" = c(options[["tStatistic"]], options[["sampleSizeGroup1"]], options[["sampleSizeGroup2"]])
+      "OSZT"        = c(options[["zStatistic"]], options[["sampleSize"]]),
+      "OSTT"        = c(options[["tStatistic"]], options[["sampleSize"]]),
+      "ISZT"        = c(options[["zStatistic"]], options[["sampleSizeGroup1"]] , options[["sampleSizeGroup2"]]),
+      "ISTT"        = c(options[["tStatistic"]], options[["sampleSizeGroup1"]] , options[["sampleSizeGroup2"]]),
+      "correlation" = c(options[["tStatistic"]], options[["sampleSize"]]),
+      "regression"  = c(options[["tStatistic"]], options[["degreesOfFreedom"]]),
+      "ANOVA"       = c(options[["fStatistic"]], options[["degreesOfFreedom1"]], options[["degreesOfFreedom2"]]),
+      "binomial"    = c(options[["zStatistic"]], options[["sampleSize"]]),
+      "AB"          = c(options[["chi2Statistic"]], options[["degreesOfFreedom"]])
     ),
     exitAnalysisIfErrors         = TRUE
   )
@@ -201,7 +294,15 @@ bffAnalysis <- function(jaspResults, dataset, options, test) {
 
   summaryTable <- createJaspTable(title = switch(
     options[["test"]],
-    "ISTT" = gettext("Two-Sample T-Test Bayes Factor Function Summary Table")
+    "OSZT"        = gettext("One Sample Z-Test Bayes Factor Function Summary Table"),
+    "OSTT"        = gettext("One Sample T-Test Bayes Factor Function Summary Table"),
+    "ISZT"        = gettext("Independent Samples Z-Test Bayes Factor Function Summary Table"),
+    "ISTT"        = gettext("Independent Samples T-Test Bayes Factor Function Summary Table"),
+    "correlation" = gettext("Correlation Bayes Factor Function Summary Table"),
+    "regression"  = gettext("Regression Bayes Factor Function Summary Table"),
+    "ANOVA"       = gettext("ANOVA Bayes Factor Function Summary Table"),
+    "binomial"    = gettext("Binomial Test Bayes Factor Function Summary Table"),
+    "AB"          = gettext("A/B T-Test Bayes Factor Function Summary Table")
   ))
   summaryTable$dependOn(c(.bffGetDependencies(options), "bayesFactorType"))
   summaryTable$position <- 1
@@ -218,8 +319,10 @@ bffAnalysis <- function(jaspResults, dataset, options, test) {
 
   fit <- jaspResults[["fit"]]$object
 
-  if (isTryError(fit))
+  if (isTryError(fit)) {
     summaryTable$setError(fit)
+    return()
+  }
 
   summaryTable$addRows(list(
     n       = nrow(dataset),
@@ -239,7 +342,15 @@ bffAnalysis <- function(jaspResults, dataset, options, test) {
 
   omegaTable <- createJaspTable(title = switch(
     options[["test"]],
-    "ISTT" = gettext("Two-Sample T-Test Bayes Factor")
+    "OSZT"        = gettext("One Sample Z-Test Bayes Factor"),
+    "OSTT"        = gettext("One Sample T-Test Bayes Factor"),
+    "ISZT"        = gettext("Independent Samples Z-Test Bayes Factor"),
+    "ISTT"        = gettext("Independent Samples T-Test Bayes Factor"),
+    "correlation" = gettext("Correlation Bayes Factor"),
+    "regression"  = gettext("Regression Bayes Factor"),
+    "ANOVA"       = gettext("ANOVA Bayes Factor"),
+    "binomial"    = gettext("Binomial Test Bayes Factor"),
+    "AB"          = gettext("A/B T-Test Bayes Factor")
   ))
   omegaTable$dependOn(c(
     .bffGetDependencies(options),
@@ -258,8 +369,10 @@ bffAnalysis <- function(jaspResults, dataset, options, test) {
 
   fit <- jaspResults[["fitOmega"]]$object
 
-  if (isTryError(fit))
+  if (isTryError(fit)) {
     omegaTable$setError(fit)
+    return()
+  }
 
   omegaTable$addRows(list(
     n       = nrow(dataset),
@@ -279,7 +392,15 @@ bffAnalysis <- function(jaspResults, dataset, options, test) {
 
   bayesFactorFunctionPlot <- createJaspPlot(title = switch(
     options[["test"]],
-    "ISTT" = gettext("Two-Sample T-Test Bayes Factor Function")
+    "OSZT"        = gettext("One Sample Z-Test Bayes Factor Function"),
+    "OSTT"        = gettext("One Sample T-Test Bayes Factor Function"),
+    "ISZT"        = gettext("Independent Samples Z-Test Bayes Factor Function"),
+    "ISTT"        = gettext("Independent Samples T-Test Bayes Factor Function"),
+    "correlation" = gettext("Correlation Bayes Factor Function"),
+    "regression"  = gettext("Regression Bayes Factor Function"),
+    "ANOVA"       = gettext("ANOVA Bayes Factor Function"),
+    "binomial"    = gettext("Binomial Test Bayes Factor Function"),
+    "AB"          = gettext("A/B T-Test Bayes Factor Function")
   ))
   bayesFactorFunctionPlot$dependOn(c(
     .bffGetDependencies(options),
@@ -293,13 +414,17 @@ bffAnalysis <- function(jaspResults, dataset, options, test) {
 
   fit <- jaspResults[["fit"]]$object
 
-  if (isTryError(fit))
+  if (isTryError(fit)) {
     bayesFactorFunctionPlot$setError(fit)
+    return()
+  }
 
   tempPlot <- plot.BFF(fit)
 
-  if (isTryError(tempPlot))
+  if (isTryError(tempPlot)) {
     bayesFactorFunctionPlot$setError(tempPlot)
+    return()
+  }
 
   bayesFactorFunctionPlot$plotObject <- tempPlot #+ jaspGraphs::themeJaspRaw() + jaspGraphs::geom_rangeframe()
 
@@ -310,10 +435,7 @@ bffAnalysis <- function(jaspResults, dataset, options, test) {
   if (!is.null(jaspResults[["priorAndPosteriorPlot"]]))
     return()
 
-  priorAndPosteriorPlot <- createJaspPlot(title = switch(
-    options[["test"]],
-    "ISTT" = gettext("Prior and Posterior Plot")
-  ))
+  priorAndPosteriorPlot <- createJaspPlot(title = gettext("Prior and Posterior Plot"))
   priorAndPosteriorPlot$dependOn(c(
     .bffGetDependencies(options),
     "plotPriorAndPosterior", "plotBayesFactorFunctionAdditionalInfo"))
@@ -326,13 +448,17 @@ bffAnalysis <- function(jaspResults, dataset, options, test) {
 
   fit <- jaspResults[["fit"]]$object
 
-  if (isTryError(fit))
+  if (isTryError(fit)) {
     priorAndPosteriorPlot$setError(fit)
+    return()
+  }
 
   tempPlot <- posterior_plot(fit, prior = TRUE)
 
-  if (isTryError(tempPlot))
+  if (isTryError(tempPlot)) {
     priorAndPosteriorPlot$setError(tempPlot)
+    return()
+  }
 
   priorAndPosteriorPlot$plotObject <- tempPlot + jaspGraphs::themeJaspRaw() + jaspGraphs::geom_rangeframe()
 

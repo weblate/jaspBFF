@@ -40,29 +40,29 @@ Form {
 		}
 
 		AssignedVariablesList {
-			name:				"tStatistic"
-			title:				qsTr("T-Statistic")
+			name:				"fStatistic"
+			title:				qsTr("F-Statistic")
 			allowedColumns:		["scale"]
 			singleVariable:		true
 		}
 
 		AssignedVariablesList
 		{
-			name:				"sampleSizeGroup1"
-			title:				qsTr("Sample Size Group 1")
+			name:				"degreesOfFreedom1"
+			title:				qsTr("Degrees of Freedom 1")
 			allowedColumns:		["ordinal", "scale"]
 			singleVariable:		true
 		}
 
 		AssignedVariablesList
 		{
-			name:				"sampleSizeGroup2"
-			title:				qsTr("Sample Size Group 2")
+			name:				"degreesOfFreedom2"
+			title:				qsTr("Degrees of Freedom 2")
 			allowedColumns:		["ordinal", "scale"]
 			singleVariable:		true
 		}
 	}
 
-	BFF.Analysis{}
+	BFF.Analysis{directionalTest:	false}
 	BFF.Priors{}
 }

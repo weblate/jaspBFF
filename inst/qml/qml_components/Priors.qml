@@ -15,54 +15,42 @@
 // License along with this program.  If not, see
 // <http://www.gnu.org/licenses/>.
 //
-
 import QtQuick			2.8
 import QtQuick.Layouts	1.3
 import JASP.Controls	1.0
 import JASP.Widgets		1.0
 import JASP				1.0
-import "../qml/qml_components" as BFF
 
-Form {
-	id: form
-	property int framework:	Common.Type.Framework.Bayesian
+Section
+{
+	expanded:	true
+	title:		qsTr("Priors")
 
-	plotHeight: 340
-	plotWidth:  420
-
-	VariablesForm
+	RadioButtonGroup
 	{
-		preferredHeight: jaspTheme.smallDefaultVariablesFormHeight
+		name:	"priorR"
+		title:	qsTr("Prior r")
 
-		AvailableVariablesList
+		RadioButton
 		{
-			name: "allVariablesList"
+			value:		"automatic"
+			label:		qsTr("Automatic")
+			checked:	true
 		}
-
-		AssignedVariablesList {
-			name:				"tStatistic"
-			title:				qsTr("T-Statistic")
-			allowedColumns:		["scale"]
-			singleVariable:		true
-		}
-
-		AssignedVariablesList
+		RadioButton
 		{
-			name:				"sampleSizeGroup1"
-			title:				qsTr("Sample Size Group 1")
-			allowedColumns:		["ordinal", "scale"]
-			singleVariable:		true
-		}
+			value:		"manual"
+			label:		qsTr("Manual")
+			childrenOnSameRow:	true
 
-		AssignedVariablesList
-		{
-			name:				"sampleSizeGroup2"
-			title:				qsTr("Sample Size Group 2")
-			allowedColumns:		["ordinal", "scale"]
-			singleVariable:		true
+			DoubleField
+			{
+				name:			"priorRManualValue"
+				defaultValue:	1
+				min:			1
+				inclusive:		JASP.MinOnly
+			}
 		}
 	}
 
-	BFF.Analysis{}
-	BFF.Priors{}
 }

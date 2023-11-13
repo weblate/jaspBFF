@@ -17,8 +17,8 @@
 
 
 #' @export
-bffIndependentSamplesTTest <- function(jaspResults, dataset, options) {
+bffCorrelation <- function(jaspResults, dataset, options) {
 
-  options[["test"]] <- "ISTT"
+  options[["test"]] <- "correlation"
   bffAnalysis(jaspResults, dataset, options)
 }

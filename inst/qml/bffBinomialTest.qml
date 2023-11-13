@@ -40,24 +40,16 @@ Form {
 		}
 
 		AssignedVariablesList {
-			name:				"tStatistic"
-			title:				qsTr("T-Statistic")
+			name:				"zStatistic"
+			title:				qsTr("Z-Statistic")
 			allowedColumns:		["scale"]
 			singleVariable:		true
 		}
 
 		AssignedVariablesList
 		{
-			name:				"sampleSizeGroup1"
-			title:				qsTr("Sample Size Group 1")
-			allowedColumns:		["ordinal", "scale"]
-			singleVariable:		true
-		}
-
-		AssignedVariablesList
-		{
-			name:				"sampleSizeGroup2"
-			title:				qsTr("Sample Size Group 2")
+			name:				"sampleSize"
+			title:				qsTr("Sample Size")
 			allowedColumns:		["ordinal", "scale"]
 			singleVariable:		true
 		}

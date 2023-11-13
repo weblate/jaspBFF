@@ -40,8 +40,8 @@ Form {
 		}
 
 		AssignedVariablesList {
-			name:				"tStatistic"
-			title:				qsTr("T-Statistic")
+			name:				"zStatistic"
+			title:				qsTr("Z-Statistic")
 			allowedColumns:		["scale"]
 			singleVariable:		true
 		}
