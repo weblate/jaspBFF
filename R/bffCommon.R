@@ -77,7 +77,7 @@ bffAnalysis <- function(jaspResults, dataset, options, test) {
 .bffFitBFFFunction           <- function(dataset, options, fixedOmega = FALSE) {
 
   if (options[["test"]] == "OSZT")
-    fit <- try(z_test_BFF(
+    fit <- try(BFF::z_test_BFF(
       z_stat      = dataset[[options[["zStatistic"]]]],
       one_sample  = TRUE,
       alternative = .bffGetAlternativeHypothesis(options),
@@ -85,7 +85,7 @@ bffAnalysis <- function(jaspResults, dataset, options, test) {
       r           = .bffGetR(options, singleStudy = nrow(dataset) == 1),
       omega       = if (fixedOmega) options[["bayesFactorAtOmegaValue"]] else NULL))
   else if (options[["test"]] == "OSTT")
-    fit <- try(t_test_BFF(
+    fit <- try(BFF::t_test_BFF(
       t_stat      = dataset[[options[["tStatistic"]]]],
       one_sample  = TRUE,
       alternative = .bffGetAlternativeHypothesis(options),
@@ -93,7 +93,7 @@ bffAnalysis <- function(jaspResults, dataset, options, test) {
       r           = .bffGetR(options, singleStudy = nrow(dataset) == 1),
       omega       = if (fixedOmega) options[["bayesFactorAtOmegaValue"]] else NULL))
   else if (options[["test"]] == "ISZT")
-    fit <- try(z_test_BFF(
+    fit <- try(BFF::z_test_BFF(
       z_stat      = dataset[[options[["zStatistic"]]]],
       one_sample  = FALSE,
       alternative = .bffGetAlternativeHypothesis(options),
@@ -102,7 +102,7 @@ bffAnalysis <- function(jaspResults, dataset, options, test) {
       r           = .bffGetR(options, singleStudy = nrow(dataset) == 1),
       omega       = if (fixedOmega) options[["bayesFactorAtOmegaValue"]] else NULL))
   else if (options[["test"]] == "ISTT")
-    fit <- try(t_test_BFF(
+    fit <- try(BFF::t_test_BFF(
       t_stat      = dataset[[options[["tStatistic"]]]],
       one_sample  = FALSE,
       alternative = .bffGetAlternativeHypothesis(options),
@@ -111,35 +111,35 @@ bffAnalysis <- function(jaspResults, dataset, options, test) {
       r           = .bffGetR(options, singleStudy = nrow(dataset) == 1),
       omega       = if (fixedOmega) options[["bayesFactorAtOmegaValue"]] else NULL))
   else if (options[["test"]] == "correlation")
-    fit <- try(correlation_BFF(
+    fit <- try(BFF::correlation_BFF(
       t_stat      = dataset[[options[["tStatistic"]]]],
       alternative = .bffGetAlternativeHypothesis(options),
       n           = dataset[[options[["sampleSize"]]]],
       r           = .bffGetR(options, singleStudy = nrow(dataset) == 1),
       omega       = if (fixedOmega) options[["bayesFactorAtOmegaValue"]] else NULL))
   else if (options[["test"]] == "regression")
-    fit <- try(regression_BFF(
+    fit <- try(BFF::regression_BFF(
       t_stat      = dataset[[options[["tStatistic"]]]],
       alternative = .bffGetAlternativeHypothesis(options),
       df          = dataset[[options[["degreesOfFreedom"]]]],
       r           = .bffGetR(options, singleStudy = nrow(dataset) == 1),
       omega       = if (fixedOmega) options[["bayesFactorAtOmegaValue"]] else NULL))
   else if (options[["test"]] == "ANOVA")
-    fit <- try(ANOVA_BFF(
+    fit <- try(BFF::ANOVA_BFF(
       f_stat      = dataset[[options[["fStatistic"]]]],
       df1         = dataset[[options[["degreesOfFreedom1"]]]],
       df2         = dataset[[options[["degreesOfFreedom2"]]]],
       r           = .bffGetR(options, singleStudy = nrow(dataset) == 1),
       omega       = if (fixedOmega) options[["bayesFactorAtOmegaValue"]] else NULL))
   else if (options[["test"]] == "binomial")
-    fit <- try(binomial_test_BFF(
+    fit <- try(BFF::binom_test_BFF(
       z_stat      = dataset[[options[["zStatistic"]]]],
       alternative = .bffGetAlternativeHypothesis(options),
       n           = dataset[[options[["sampleSize"]]]],
       r           = .bffGetR(options, singleStudy = nrow(dataset) == 1),
       omega       = if (fixedOmega) options[["bayesFactorAtOmegaValue"]] else NULL))
   else if (options[["test"]] == "AB")
-    fit <- try(AB_test_BFF(
+    fit <- try(BFF::AB_test_BFF(
       chi2_stat   = dataset[[options[["chi2Statistic"]]]],
       alternative = .bffGetAlternativeHypothesis(options),
       df          = dataset[[options[["degreesOfFreedom"]]]],
@@ -419,7 +419,7 @@ bffAnalysis <- function(jaspResults, dataset, options, test) {
     return()
   }
 
-  tempPlot <- plot.BFF(fit)
+  tempPlot <- plot(fit, title = "")
 
   if (isTryError(tempPlot)) {
     bayesFactorFunctionPlot$setError(tempPlot)
@@ -453,7 +453,7 @@ bffAnalysis <- function(jaspResults, dataset, options, test) {
     return()
   }
 
-  tempPlot <- posterior_plot(fit, prior = TRUE)
+  tempPlot <- BFF::posterior_plot(fit, prior = TRUE)
 
   if (isTryError(tempPlot)) {
     priorAndPosteriorPlot$setError(tempPlot)
