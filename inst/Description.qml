@@ -12,6 +12,7 @@ Description
 	website		: "https://jasp-stats.org"
 	license		: "GPL (>= 2)"
 	icon		: "analysis-bayes-factor-functions.svg"
+	requiresData: false
 
 	GroupTitle
 	{
@@ -55,11 +56,11 @@ Description
 		icon:	"analysis-bayesian-regression.svg"
 	}
 
-	Analysis
+	/*Analysis
 	{
 		title:	qsTr("Correlation")
 		func:	"bffCorrelation"
-	}
+	}*/
 
 	Analysis
 	{
@@ -79,15 +80,15 @@ Description
 		icon: "analysis-bayesian-crosstabs.svg"
 	}
 
-	Analysis
+	/*Analysis
 	{
 		title:	qsTr("Binomial test")
 		func:	"bffBinomialTest"
-	}
+	}*/
 
 	Analysis
 	{
-		title:	qsTr("A/B Test")
-		func:	"bffABTest"
+		title:	qsTr("Chi² Test")
+		func:	"bffChi2"
 	}
 }

@@ -30,7 +30,29 @@ Form {
 	plotHeight: 340
 	plotWidth:  420
 
-	VariablesForm
+	Group
+	{
+		DoubleField 
+		{
+			name:				"fStatistic";
+			label:				qsTr("F-statistic")
+			negativeValues:		true
+		}
+
+		IntegerField
+		{
+			name:				"degreesOfFreedom1"
+			label:				qsTr("Degrees of freedom 1")
+		}
+
+		IntegerField
+		{
+			name:				"degreesOfFreedom2"
+			label:				qsTr("Degrees of freedom 2")
+		}
+    }
+
+	/*VariablesForm
 	{
 		preferredHeight: jaspTheme.smallDefaultVariablesFormHeight
 
@@ -61,7 +83,7 @@ Form {
 			allowedColumns:		["ordinal", "scale"]
 			singleVariable:		true
 		}
-	}
+	}*/
 
 	BFF.Analysis{directionalTest:	false}
 	BFF.Priors{}

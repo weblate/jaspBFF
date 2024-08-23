@@ -30,7 +30,29 @@ Form {
 	plotHeight: 340
 	plotWidth:  420
 
-	VariablesForm
+	Group
+	{
+		DoubleField 
+		{
+			name:				"tStatistic";
+			label:				qsTr("T-statistic")
+			negativeValues:		true
+		}
+
+		IntegerField
+		{
+			name:				"sampleSizeGroup1"
+			label:				qsTr("Sample size group 1")
+		}
+		
+		IntegerField
+		{
+			name:				"sampleSizeGroup2"
+			label:				 qsTr("Sample size group 2")
+		}
+	}
+	
+	/*VariablesForm
 	{
 		preferredHeight: jaspTheme.smallDefaultVariablesFormHeight
 
@@ -61,7 +83,7 @@ Form {
 			allowedColumns:		["ordinal", "scale"]
 			singleVariable:		true
 		}
-	}
+	}*/
 
 	BFF.Analysis{}
 	BFF.Priors{}

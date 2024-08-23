@@ -26,31 +26,12 @@ Section
 	expanded:	true
 	title:		qsTr("Priors")
 
-	RadioButtonGroup
+	DoubleField
 	{
-		name:	"priorR"
-		title:	qsTr("Prior r")
-
-		RadioButton
-		{
-			value:		"automatic"
-			label:		qsTr("Automatic")
-			checked:	true
-		}
-		RadioButton
-		{
-			value:		"manual"
-			label:		qsTr("Manual")
-			childrenOnSameRow:	true
-
-			DoubleField
-			{
-				name:			"priorRManualValue"
-				defaultValue:	1
-				min:			1
-				inclusive:		JASP.MinOnly
-			}
-		}
+		name:			"priorDispersionR"
+		label:			qsTr("Prior dispersion r")
+		defaultValue:	1
+		min:			1
+		inclusive:		JASP.MinOnly
 	}
-
 }

@@ -23,7 +23,7 @@ import JASP				1.0
 
 Section
 {
-	property bool directionalTest:	true
+	property bool directionalTest:		true	
 
 	expanded:	true
 	title:		qsTr("Analysis")
@@ -44,13 +44,13 @@ Section
 
 		CheckBox
 		{
-			name:	"bayesFactorAtOmega"	
-			label:	qsTr("Bayes factor at ω")
+			name:	"bayesFactorWithPriorMode"	
+			label:	qsTr("Bayes factor with prior mode")
 			childrenOnSameRow:	true
 
 			DoubleField
 			{
-				name:			"bayesFactorAtOmegaValue"
+				name:			"bayesFactorWithPriorModeValue"
 				defaultValue:	1
 			}
 		}

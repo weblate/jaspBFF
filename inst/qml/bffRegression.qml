@@ -30,7 +30,29 @@ Form {
 	plotHeight: 340
 	plotWidth:  420
 
-	VariablesForm
+	Group
+	{
+		DoubleField 
+		{
+			name:				"tStatistic";
+			label:				qsTr("T-statistic")
+			negativeValues:		true
+		}
+
+		IntegerField
+		{
+			name:				"sampleSize"
+			label:				qsTr("Sample size")
+		}
+		
+		IntegerField
+		{
+			name:				"predictors"
+			label:				 qsTr("Predictors")
+		}
+	}
+
+	/*VariablesForm
 	{
 		preferredHeight: jaspTheme.smallDefaultVariablesFormHeight
 
@@ -53,7 +75,15 @@ Form {
 			allowedColumns:		["ordinal", "scale"]
 			singleVariable:		true
 		}
-	}
+
+		AssignedVariablesList
+		{
+			name:				"predictors"
+			title:				qsTr("Predictors")
+			allowedColumns:		["ordinal", "scale"]
+			singleVariable:		true
+		}
+	}*/
 
 	BFF.Analysis{}
 	BFF.Priors{}

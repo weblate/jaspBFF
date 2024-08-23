@@ -30,7 +30,23 @@ Form {
 	plotHeight: 340
 	plotWidth:  420
 
-	VariablesForm
+	Group
+	{
+		DoubleField 
+		{
+			name:				"zStatistic";
+			label:				qsTr("Z-statistic")
+			negativeValues:		true
+		}
+
+		IntegerField
+		{
+			name:				"sampleSize"
+			label:				qsTr("Sample size")
+		}
+    }
+
+	/*VariablesForm
 	{
 		preferredHeight: jaspTheme.smallDefaultVariablesFormHeight
 
@@ -53,7 +69,7 @@ Form {
 			allowedColumns:		["ordinal", "scale"]
 			singleVariable:		true
 		}
-	}
+	}*/
 
 	BFF.Analysis{}
 	BFF.Priors{}
