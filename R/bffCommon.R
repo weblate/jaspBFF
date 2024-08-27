@@ -42,7 +42,7 @@ bffAnalysis <- function(jaspResults, dataset, options, test) {
 
 .bffGetDependencies          <- function(options) {
 
-  dependenciesGlobal <- c("alternativeHypothesis", "priorR", "priorRManualValue")
+  dependenciesGlobal <- c("alternativeHypothesis", "priorDispersionR")
   dependenciesTest   <- switch(
     options[["test"]],
     "OSZT"        = c("zStatistic", "sampleSize"),
@@ -440,6 +440,55 @@ bffAnalysis <- function(jaspResults, dataset, options, test) {
   }
 
   tempPlot <- plot(fit, title = "")
+
+  df  <- data.frame(x = fit$BFF$omega, BF = .recodeBFtype(bfOld = fit$BFF$log_bf, newBFtype = options[["bayesFactorType"]], oldBFtype = "LogBF10"))
+
+  out <- ggplot2::ggplot(df) +
+    jaspGraphs::geom_line(ggplot2::aes(x = x, y = BF)) +
+    ggplot2::xlab(.bffEffectSizeInformation(options)) +
+    ggplot2::ylab(.bffGetBFTitle(options, maximum = FALSE))
+
+  if (options[["plotBayesFactorFunctionAdditionalInfo"]]) {
+
+    # add effect size regions
+    effect_size_cutpoints <- BFF:::.get_effect_size_cutpoints(fit$test_type)
+    effect_size_range     <- BFF:::.get_effect_size_range(fit$test_type)
+    effect_size_colors <- c(
+      grDevices::adjustcolor("red", 0.1),
+      grDevices::adjustcolor("orange", 0.1),
+      grDevices::adjustcolor("blue", 0.1),
+      grDevices::adjustcolor("green", 0.1)
+    )
+
+    for (i in 1:(length(effect_size_cutpoints) + 1)) {
+      out <- out + ggplot2::annotate(
+        "rect",
+        xmin = if (i == 1) -Inf else effect_size_cutpoints[i - 1],
+        xmax = if (i == 1) effect_size_cutpoints[1] else if (i == length(effect_size_cutpoints) + 1) Inf else effect_size_cutpoints[i],
+        ymin = -Inf,
+        ymax = Inf,
+        fill = effect_size_colors[i]
+      )
+    }
+
+    out <- out + ggplot2::geom_vline(xintercept = effect_size_cutpoints, lwd = 0.2)
+
+    # add maximum BF
+
+    # add specific prior mode BF
+  }
+
+  y_ticks <- sort(do.call(c, lapply(c(3, 10), function(x) x *
+                                      10^(0:nchar(ceiling(exp(max(abs(df$log_BF)))/(10 * x)))))))
+  y_labels <- c(paste0("1:", rev(y_ticks)), 1, paste0(y_ticks,
+                                                      ":1"))
+  y_ticks <- c(1/rev(y_ticks), 1, y_ticks)
+  out <- out + ggplot2::scale_y_continuous(breaks = log(y_ticks),
+                                           labels = y_labels) + ggplot2::scale_x_continuous(expand = c(0,
+                                                                                                       0.05)) + ggplot2::geom_hline(yintercept = 0, lwd = 0.2) +
+    ggplot2::theme_bw() + ggplot2::theme(plot.title = ggplot2::element_text(hjust = 0.5),
+                                         panel.grid = ggplot2::element_blank())
+
 
   if (isTryError(tempPlot)) {
     bayesFactorFunctionPlot$setError(tempPlot)
