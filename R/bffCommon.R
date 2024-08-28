@@ -5,11 +5,11 @@
 # "ISZT"        = Independent samples z-test
 # "OSTT"        = One samples t-test
 # "ISTT"        = Independent samples t-test
-# "correlation" = correlation
+# TODO: "correlation" = correlation
 # "regression"  = regression
 # "ANOVA"       = ANOVA
-# "binomial"    = binomial t-test
-# "AB"          = A/B test
+# TODO: "binomial"    = binomial t-test
+# TODO: "AB"          = A/B test
 # "Chi2"        = Chi2 test
 
 bffAnalysis <- function(jaspResults, dataset, options, test) {
@@ -18,8 +18,8 @@ bffAnalysis <- function(jaspResults, dataset, options, test) {
   if (.bffReady(options))
     .bffFitBFF(jaspResults, dataset, options)
 
-  saveRDS(options, file = "C:/JASP/options.RDS")
-  saveRDS(dataset, file = "C:/JASP/dataset.RDS")
+  # saveRDS(options, file = "C:/JASP/options.RDS")
+  # saveRDS(dataset, file = "C:/JASP/dataset.RDS")
   # default summary table
   .bffSummaryTable(jaspResults, dataset, options)
 
@@ -35,7 +35,7 @@ bffAnalysis <- function(jaspResults, dataset, options, test) {
     .bffBayesFactorFunctionPlot(jaspResults, dataset, options)
 
   # prior and posterior plot
-  if (options[["plotPriorAndPosterior"]])
+  if (FALSE && options[["plotPriorAndPosterior"]])
     .bffPriorAndPosteriorPlot(jaspResults, dataset, options)
 }
 
@@ -54,7 +54,7 @@ bffAnalysis <- function(jaspResults, dataset, options, test) {
     "ANOVA"       = c("fStatistic", "degreesOfFreedom1", "degreesOfFreedom2"),
     #"binomial"    = c("zStatistic", "sampleSize"),
     #"AB"          = c("chiqsrStatistic", "degreesOfFreedom"),
-    "Chi2"        = c("chiqsrStatistic", "sampleSize")
+    "Chi2"        = c("chi2Statistic", "sampleSize")
   )
 
   return(c(dependenciesGlobal, dependenciesTest))
@@ -86,7 +86,7 @@ bffAnalysis <- function(jaspResults, dataset, options, test) {
       alternative = .bffGetAlternativeHypothesis(options),
       n           = options[["sampleSize"]],
       r           = options[["priorDispersionR"]],
-      omega       = if (fixedOmega) options[["bayesFactorWithPriorMode"]] else NULL))
+      omega       = if (fixedOmega) options[["bayesFactorWithPriorModeValue"]] else NULL))
   else if (options[["test"]] == "OSTT")
     fit <- try(BFF::t_test_BFF(
       t_stat      = options[["tStatistic"]],
@@ -94,7 +94,7 @@ bffAnalysis <- function(jaspResults, dataset, options, test) {
       alternative = .bffGetAlternativeHypothesis(options),
       n           = options[["sampleSize"]],
       r           = options[["priorDispersionR"]],
-      omega       = if (fixedOmega) options[["bayesFactorWithPriorMode"]] else NULL))
+      omega       = if (fixedOmega) options[["bayesFactorWithPriorModeValue"]] else NULL))
   else if (options[["test"]] == "ISZT")
     fit <- try(BFF::z_test_BFF(
       z_stat      = options[["zStatistic"]],
@@ -103,7 +103,7 @@ bffAnalysis <- function(jaspResults, dataset, options, test) {
       n1          = options[["sampleSizeGroup1"]],
       n2          = options[["sampleSizeGroup2"]],
       r           = options[["priorDispersionR"]],
-      omega       = if (fixedOmega) options[["bayesFactorWithPriorMode"]] else NULL))
+      omega       = if (fixedOmega) options[["bayesFactorWithPriorModeValue"]] else NULL))
   else if (options[["test"]] == "ISTT")
     fit <- try(BFF::t_test_BFF(
       t_stat      = options[["tStatistic"]],
@@ -112,14 +112,14 @@ bffAnalysis <- function(jaspResults, dataset, options, test) {
       n1          = options[["sampleSizeGroup1"]],
       n2          = options[["sampleSizeGroup2"]],
       r           = options[["priorDispersionR"]],
-      omega       = if (fixedOmega) options[["bayesFactorWithPriorMode"]] else NULL))
+      omega       = if (fixedOmega) options[["bayesFactorWithPriorModeValue"]] else NULL))
   #else if (options[["test"]] == "correlation")
   #  fit <- try(BFF::cor_test_BFF(
   #    z_stat      = options[["tStatistic"]],
   #    alternative = .bffGetAlternativeHypothesis(options),
   #    n           = options[["sampleSize"]],
   #    r           = options[["priorDispersionR"]],
-  #    omega       = if (fixedOmega) options[["bayesFactorWithPriorMode"]] else NULL))
+  #    omega       = if (fixedOmega) options[["bayesFactorWithPriorModeValue"]] else NULL))
   else if (options[["test"]] == "regression")
     fit <- try(BFF::regression_test_BFF(
       t_stat      = options[["tStatistic"]],
@@ -127,33 +127,33 @@ bffAnalysis <- function(jaspResults, dataset, options, test) {
       n           = options[["sampleSize"]],
       k           = options[["predictors"]],
       r           = options[["priorDispersionR"]],
-      omega       = if (fixedOmega) options[["bayesFactorWithPriorMode"]] else NULL))
+      omega       = if (fixedOmega) options[["bayesFactorWithPriorModeValue"]] else NULL))
   else if (options[["test"]] == "ANOVA")
     fit <- try(BFF::f_test_BFF(
       f_stat      = options[["fStatistic"]],
       df1         = options[["degreesOfFreedom1"]],
       df2         = options[["degreesOfFreedom2"]],
       r           = options[["priorDispersionR"]],
-      omega       = if (fixedOmega) options[["bayesFactorWithPriorMode"]] else NULL))
+      omega       = if (fixedOmega) options[["bayesFactorWithPriorModeValue"]] else NULL))
   #else if (options[["test"]] == "binomial")
   #  fit <- try(BFF::binom_test_BFF(
   #    z_stat      = options[["zStatistic"]],
   #    alternative = .bffGetAlternativeHypothesis(options),
   #    n           = options[["sampleSize"]],
   #    r           = options[["priorDispersionR"]],
-  #    omega       = if (fixedOmega) options[["bayesFactorWithPriorMode"]] else NULL))
+  #    omega       = if (fixedOmega) options[["bayesFactorWithPriorModeValue"]] else NULL))
   #else if (options[["test"]] == "AB")
   #  fit <- try(BFF::chi2_test_BFF(
   #    chi2_stat   = options[["chi2Statistic"]],
   #    df          = options[["degreesOfFreedom"]],
   #    r           = options[["priorDispersionR"]],
-  #    omega       = if (fixedOmega) options[["bayesFactorWithPriorMode"]] else NULL))
+  #    omega       = if (fixedOmega) options[["bayesFactorWithPriorModeValue"]] else NULL))
   else if (options[["test"]] == "Chi2")
     fit <- try(BFF::chi2_test_BFF(
       chi2_stat   = options[["chi2Statistic"]],
       n           = options[["sampleSize"]],
       r           = options[["priorDispersionR"]],
-      omega       = if (fixedOmega) options[["bayesFactorWithPriorMode"]] else NULL))
+      omega       = if (fixedOmega) options[["bayesFactorWithPriorModeValue"]] else NULL))
 
   return(fit)
 }
@@ -261,44 +261,82 @@ bffAnalysis <- function(jaspResults, dataset, options, test) {
 
   return(dataset)
 }
-.bffGetBFTitle               <- function(options, maximum = TRUE) {
+.bffGetBFTitle               <- function(options, maximum = TRUE, plot = FALSE) {
+
+  if (plot && options[["bayesFactorType"]] == "BF01") {
+    bfType <- "BF01"
+  } else if (plot) {
+    bfType <- "BF10"
+  } else {
+    bfType <- options[["bayesFactorType"]]
+  }
+  hypothesis <- options[["alternativeHypothesis"]]
+
+  if (bfType == "BF10") {
+
+    bfTitle <- switch(
+      hypothesis,
+      "equal"   = if (plot) "BF[1][0]"   else "BF\u2081\u2080",
+      "greater" = if (plot) "BF['+'][0]" else "BF\u208A\u2080",
+      "less"    = if (plot) "BF['-'][0]" else "BF\u208B\u2080"
+    )
+    if (maximum)
+      bfTitle <- paste0("max(", bfTitle, ")")
+
+  } else if (bfType == "LogBF10") {
+
+    bfTitle <- switch(
+      hypothesis,
+      "equal"   = if (plot) "BF[1][0]"   else "BF\u2081\u2080",
+      "greater" = if (plot) "BF['+'][0]" else "BF\u208A\u2080",
+      "less"    = if (plot) "BF['-'][0]" else "BF\u208B\u2080"
+    )
+    if (maximum)
+      bfTitle <- paste0("max[", bfTitle, "]")
+
+    bfTitle <- paste0("Log(", bfTitle, ")")
+
+  } else if (bfType == "BF01") {
+
+    bfTitle <- switch(
+      hypothesis,
+      "equal"   = if (plot) "BF[0][1]"   else "BF\u2080\u2081",
+      "greater" = if (plot) "BF[0]['+']" else "BF\u2080\u208A",
+      "less"    = if (plot) "BF[0]['-']" else "BF\u2080\u208B"
+    )
+    if (maximum)
+      bfTitle <- paste0("min(", bfTitle, ")")
+
+  }
+
+  return(bfTitle)
+}
+.bttGetBFnamePlots           <- function(options, subscriptsOnly = FALSE) {
 
   bfType     <- options[["bayesFactorType"]]
   hypothesis <- options[["alternativeHypothesis"]]
 
-  if (bfType == "BF10") {
+  if (bfType %in% c("BF10", "LogBF10")) {
     if (hypothesis == "equal") {
-      bfTitle <- "BF\u2081\u2080"
+      bfTitle <- "BF[1][0]"
     } else if (hypothesis == "greater") {
-      bfTitle <- "BF\u208A\u2080"
+      bfTitle <- "BF['+'][0]"
     } else {
-      bfTitle <- "BF\u208B\u2080"
+      bfTitle <- "BF['-'][0]"
     }
-    if (maximum)
-      bfTitle <- paste0("max(", bfTitle, ")")
-  } else if (bfType == "LogBF10") {
+  } else {
     if (hypothesis == "equal") {
-      bfTitle <- "\u0042\u0046\u2081\u2080"
+      bfTitle <- "BF[0][1]"
     } else if (hypothesis == "greater") {
-      bfTitle <- "\u0042\u0046\u208A\u2080"
+      bfTitle <- "BF[0]['+']"
     } else {
-      bfTitle <- "\u0042\u0046\u208B\u2080"
+      bfTitle <- "BF[0]['-']"
     }
-    if (maximum)
-      bfTitle <- paste0("max[", bfTitle, "]")
-    bfTitle <- paste0("Log(", bfTitle, ")")
-  } else if (bfType == "BF01") {
-    if (hypothesis == "equal") {
-      bfTitle <- "BF\u2080\u2081"
-    } else if (hypothesis == "greater") {
-      bfTitle <- "BF\u2080\u208A"
-    } else {
-      bfTitle <- "BF\u2080\u208B"
-    }
-    if (maximum)
-      bfTitle <- paste0("min(", bfTitle, ")")
   }
-  return(bfTitle)
+  if (subscriptsOnly)
+    return(substring(bfTitle, 3L))
+  else
+    return(bfTitle)
 }
 .bffSummaryTable             <- function(jaspResults, dataset, options) {
 
@@ -421,10 +459,12 @@ bffAnalysis <- function(jaspResults, dataset, options, test) {
     # "binomial"    = gettext("Binomial Test Bayes Factor Function"),
     # "AB"          = gettext("A/B Test Bayes Factor Function"),
     "Chi2"        = gettext("Chi² Test Bayes Factor Function")
-  ), width = 450, height = 400)
+  ), width = 530, height = 400)
   bayesFactorFunctionPlot$dependOn(c(
     .bffGetDependencies(options),
-    "plotBayesFactorFunction", "plotBayesFactorFunctionAdditionalInfo"))
+    "plotBayesFactorFunction", "plotBayesFactorFunctionAdditionalInfo",
+    "bayesFactorType",
+    "bayesFactorWithPriorMode", "bayesFactorWithPriorModeValue"))
   bayesFactorFunctionPlot$position <- 3
   jaspResults[["bayesFactorFunctionPlot"]] <- bayesFactorFunctionPlot
 
@@ -439,65 +479,88 @@ bffAnalysis <- function(jaspResults, dataset, options, test) {
     return()
   }
 
-  tempPlot <- plot(fit, title = "")
+  if (options[["bayesFactorWithPriorMode"]])
+    fitOmega <- jaspResults[["fitOmega"]]$object
 
-  df  <- data.frame(x = fit$BFF$omega, BF = .recodeBFtype(bfOld = fit$BFF$log_bf, newBFtype = options[["bayesFactorType"]], oldBFtype = "LogBF10"))
 
-  out <- ggplot2::ggplot(df) +
-    jaspGraphs::geom_line(ggplot2::aes(x = x, y = BF)) +
-    ggplot2::xlab(.bffEffectSizeInformation(options)) +
-    ggplot2::ylab(.bffGetBFTitle(options, maximum = FALSE))
+  dfLines <- data.frame(
+    x = fit$BFF$omega,
+    y = fit$BFF$log_bf
+  )
 
-  if (options[["plotBayesFactorFunctionAdditionalInfo"]]) {
+  maxBF10  <- exp(max(fit$BFF$log_bf))
+  if (options[["bayesFactorWithPriorMode"]])
+    BF10user <- exp(fitOmega$log_bf)
 
-    # add effect size regions
-    effect_size_cutpoints <- BFF:::.get_effect_size_cutpoints(fit$test_type)
-    effect_size_range     <- BFF:::.get_effect_size_range(fit$test_type)
-    effect_size_colors <- c(
-      grDevices::adjustcolor("red", 0.1),
-      grDevices::adjustcolor("orange", 0.1),
-      grDevices::adjustcolor("blue", 0.1),
-      grDevices::adjustcolor("green", 0.1)
-    )
-
-    for (i in 1:(length(effect_size_cutpoints) + 1)) {
-      out <- out + ggplot2::annotate(
-        "rect",
-        xmin = if (i == 1) -Inf else effect_size_cutpoints[i - 1],
-        xmax = if (i == 1) effect_size_cutpoints[1] else if (i == length(effect_size_cutpoints) + 1) Inf else effect_size_cutpoints[i],
-        ymin = -Inf,
-        ymax = Inf,
-        fill = effect_size_colors[i]
-      )
-    }
-
-    out <- out + ggplot2::geom_vline(xintercept = effect_size_cutpoints, lwd = 0.2)
-
-    # add maximum BF
-
-    # add specific prior mode BF
+  if (options[["bayesFactorType"]] == "BF01") {
+    bfType    <- "BF01"
+    dfLines$y <- -dfLines$y
+    maxBF10   <- 1 / maxBF10
+    if (options[["bayesFactorWithPriorMode"]])
+      BF10user  <- 1 / BF10user
+  } else {
+    bfType <- "BF10"
   }
 
-  y_ticks <- sort(do.call(c, lapply(c(3, 10), function(x) x *
-                                      10^(0:nchar(ceiling(exp(max(abs(df$log_BF)))/(10 * x)))))))
-  y_labels <- c(paste0("1:", rev(y_ticks)), 1, paste0(y_ticks,
-                                                      ":1"))
-  y_ticks <- c(1/rev(y_ticks), 1, y_ticks)
-  out <- out + ggplot2::scale_y_continuous(breaks = log(y_ticks),
-                                           labels = y_labels) + ggplot2::scale_x_continuous(expand = c(0,
-                                                                                                       0.05)) + ggplot2::geom_hline(yintercept = 0, lwd = 0.2) +
-    ggplot2::theme_bw() + ggplot2::theme(plot.title = ggplot2::element_text(hjust = 0.5),
-                                         panel.grid = ggplot2::element_blank())
+  BFsubscript  <- .bffGetBFTitle(options, maximum = FALSE, plot = TRUE)
+  BFsubscript1 <- .bffGetBFTitle(options, maximum = TRUE,  plot = TRUE)
 
+  label1 <- c(
+    gettextf("BFF"),
+    if (options[["bayesFactorWithPriorMode"]])
+      gettext("user prior")
+  )
+
+  # some failsafes to parse translations as expressions
+  label1  <- paste0("\"", label1, "\"")
+  label1  <- paste0("paste(", label1, ", ':')")
+
+  BFandSubscript <- BFsubscript
+  BFandSubscript <- gsub(pattern = "\\s+", "~", BFandSubscript)
+  label2 <- c(
+    gettextf("%1$s==%2$s~\"(at mode %3$s)\"", BFsubscript1,  format(maxBF10,  digits = 4), format(fit$BFF$omega[which.max(fit$BFF$log_bf)], digits = 4)),
+    if (options[["bayesFactorWithPriorMode"]])
+      gettextf("%1$s==%2$s~\"(at mode %3$s)\"",  BFsubscript, format(BF10user,  digits = 4), format(options[["bayesFactorWithPriorModeValue"]], digits = 4))
+  )
+
+  if (options[["plotBayesFactorFunctionAdditionalInfo"]]) {
+    dfPoints <- data.frame(
+      x = c(
+        fit$BFF$omega[which.max(fit$BFF$log_bf)],
+        if (options[["bayesFactorWithPriorMode"]]) options[["bayesFactorWithPriorModeValue"]]
+      ),
+      y = log(
+        c(maxBF10,
+        if (options[["bayesFactorWithPriorMode"]]) BF10user)
+      ),
+      g      = label1,
+      label1 = jaspGraphs::parseThis(label1),
+      label2 = jaspGraphs::parseThis(label2),
+      stringsAsFactors = FALSE
+    )
+  } else {
+    dfPoints <- NULL
+  }
+
+  if(any(is.infinite(dfLines[["y"]])))
+    stop(gettext("Some Bayes factors were infinite"))
+
+  tempPlot <- jaspGraphs::PlotRobustnessSequential(
+    dfLines      = dfLines,
+    dfPoints     = dfPoints,
+    pointLegend  = options[["plotBayesFactorFunctionAdditionalInfo"]],
+    xName        = gettextf("Prior mode (%1$s)", .bffEffectSizeInformation(options)),
+    hypothesis   = ifelse(options[["alternativeHypothesis"]] == "less", "smaller", options[["alternativeHypothesis"]]),
+    bfType       = options[["bayesFactorType"]],
+    pointColors  = c("grey", if (options[["bayesFactorWithPriorMode"]]) "black")
+  )
 
   if (isTryError(tempPlot)) {
     bayesFactorFunctionPlot$setError(tempPlot)
     return()
   }
 
-  bayesFactorFunctionPlot$plotObject <- tempPlot +
-    jaspGraphs::themeJaspRaw() +
-    jaspGraphs::geom_rangeframe()
+  bayesFactorFunctionPlot$plotObject <- tempPlot
 
   return()
 }

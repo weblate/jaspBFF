@@ -17,7 +17,7 @@
 
 
 #' @export
-bffABTest <- function(jaspResults, dataset, options) {
+bffChi2 <- function(jaspResults, dataset, options) {
 
   options[["test"]] <- "Chi2"
   bffAnalysis(jaspResults, dataset, options)
