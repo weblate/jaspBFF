@@ -4,7 +4,7 @@ import JASP.Module	1.0
 Description
 {
 	name		: "jaspBFF"
-	title		: qsTr("BFF")
+	title		: qsTr("BFF (beta)")
 	description	: qsTr("This module offers Bayes factor functions.")
 	version		: "0.18"
 	author		: "JASP Team"

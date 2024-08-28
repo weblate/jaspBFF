@@ -683,7 +683,7 @@
       "RemoteType": "local",
       "RemoteUrl": "C:/JASP/jaspBFF",
       "Cacheable": true,
-      "Hash": "8c7a2f576412a6797792b2b99e8a78a9"
+      "Hash": "64d1a5108314f5250bc8dc3764a56cdc"
     },
     "jaspBase": {
       "Package": "jaspBase",
