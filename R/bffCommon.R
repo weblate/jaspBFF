@@ -493,13 +493,13 @@ bffAnalysis <- function(jaspResults, dataset, options, test) {
     BF10user <- exp(fitOmega$log_bf)
 
   if (options[["bayesFactorType"]] == "BF01") {
-    bfType    <- "BF01"
     dfLines$y <- -dfLines$y
     maxBF10   <- 1 / maxBF10
     if (options[["bayesFactorWithPriorMode"]])
       BF10user  <- 1 / BF10user
   } else {
-    bfType <- "BF10"
+    # make sure that logBF10 is not used
+    options[["bayesFactorType"]] <- "BF10"
   }
 
   BFsubscript  <- .bffGetBFTitle(options, maximum = FALSE, plot = TRUE)
