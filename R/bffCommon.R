@@ -409,7 +409,7 @@ bffAnalysis <- function(jaspResults, dataset, options, test) {
   ))
   omegaTable$dependOn(c(
     .bffGetDependencies(options),
-    "bayesFactorType", "bayesFactorWithPriorMode", "bayesFactorWithPriorMode"))
+    "bayesFactorType", "bayesFactorWithPriorMode", "bayesFactorWithPriorModeValue"))
   omegaTable$position <- 2
   jaspResults[["omegaTable"]] <- omegaTable
 
