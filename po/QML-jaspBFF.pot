@@ -4,3 +4,187 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Qt-Contexts: true\n"
+
+msgctxt "Description|"
+msgid "BFF (beta)"
+msgstr ""
+
+msgctxt "Description|"
+msgid "This module offers Bayes factor functions."
+msgstr ""
+
+msgctxt "Description|"
+msgid "Z-Tests"
+msgstr ""
+
+msgctxt "Description|"
+msgid "One Sample Z-Test"
+msgstr ""
+
+msgctxt "Description|"
+msgid "Independent Samples Z-Test"
+msgstr ""
+
+msgctxt "Description|"
+msgid "T-Tests"
+msgstr ""
+
+msgctxt "Description|"
+msgid "One Sample T-Test"
+msgstr ""
+
+msgctxt "Description|"
+msgid "Independent Samples T-Test"
+msgstr ""
+
+msgctxt "Description|"
+msgid "Regression"
+msgstr ""
+
+msgctxt "Description|"
+msgid "ANOVA"
+msgstr ""
+
+msgctxt "Description|"
+msgid "Frequencies"
+msgstr ""
+
+msgctxt "Description|"
+msgid "Chi² Test"
+msgstr ""
+
+msgctxt "bffANOVA|"
+msgid "F-statistic"
+msgstr ""
+
+msgctxt "bffANOVA|"
+msgid "Degrees of freedom 1"
+msgstr ""
+
+msgctxt "bffANOVA|"
+msgid "Degrees of freedom 2"
+msgstr ""
+
+msgctxt "bffBinomialTest|"
+msgid "Z-Statistic"
+msgstr ""
+
+msgctxt "bffBinomialTest|"
+msgid "Sample Size"
+msgstr ""
+
+msgctxt "bffChi2|"
+msgid "Chi² statistic"
+msgstr ""
+
+msgctxt "bffChi2|"
+msgid "Sample size"
+msgstr ""
+
+msgctxt "bffCorrelation|"
+msgid "T-Statistic"
+msgstr ""
+
+msgctxt "bffCorrelation|"
+msgid "Sample Size"
+msgstr ""
+
+msgctxt "bffIndependentSamplesTTest|"
+msgid "T-statistic"
+msgstr ""
+
+msgctxt "bffIndependentSamplesTTest|"
+msgid "Sample size group 1"
+msgstr ""
+
+msgctxt "bffIndependentSamplesTTest|"
+msgid "Sample size group 2"
+msgstr ""
+
+msgctxt "bffIndependentSamplesZTest|"
+msgid "Z-statistic"
+msgstr ""
+
+msgctxt "bffIndependentSamplesZTest|"
+msgid "Sample size group 1"
+msgstr ""
+
+msgctxt "bffIndependentSamplesZTest|"
+msgid "Sample size group 2"
+msgstr ""
+
+msgctxt "bffOneSampleTTest|"
+msgid "T-statistic"
+msgstr ""
+
+msgctxt "bffOneSampleTTest|"
+msgid "Sample size"
+msgstr ""
+
+msgctxt "bffOneSampleZTest|"
+msgid "Z-statistic"
+msgstr ""
+
+msgctxt "bffOneSampleZTest|"
+msgid "Sample size"
+msgstr ""
+
+msgctxt "bffRegression|"
+msgid "T-statistic"
+msgstr ""
+
+msgctxt "bffRegression|"
+msgid "Sample size"
+msgstr ""
+
+msgctxt "bffRegression|"
+msgid "Predictors"
+msgstr ""
+
+msgctxt "Analysis|"
+msgid "Analysis"
+msgstr ""
+
+msgctxt "Analysis|"
+msgid "Alternative Hypothesis"
+msgstr ""
+
+msgctxt "Analysis|"
+msgid "Group 1 ≠ Group 2"
+msgstr ""
+
+msgctxt "Analysis|"
+msgid "Group 1 > Group 2"
+msgstr ""
+
+msgctxt "Analysis|"
+msgid "Group 1 < Group 2"
+msgstr ""
+
+msgctxt "Analysis|"
+msgid "Bayes factor with prior mode"
+msgstr ""
+
+msgctxt "Analysis|"
+msgid "Plots"
+msgstr ""
+
+msgctxt "Analysis|"
+msgid "Bayes factor function"
+msgstr ""
+
+msgctxt "Analysis|"
+msgid "Additional info"
+msgstr ""
+
+msgctxt "Analysis|"
+msgid "Prior and posterior"
+msgstr ""
+
+msgctxt "Priors|"
+msgid "Priors"
+msgstr ""
+
+msgctxt "Priors|"
+msgid "Prior dispersion r"
+msgstr ""

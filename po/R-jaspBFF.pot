@@ -1,12 +1,110 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: jaspBFF 0.19.0\n"
-"POT-Creation-Date: 2024-19-07 02:45\n"
+"Project-Id-Version: jaspBFF 0.19.2\n"
+"POT-Creation-Date: 2024-10-21 09:06\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <info@jasp-stats.org>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+msgid "One Sample Z-Test Bayes Factor Function Summary Table"
+msgstr ""
+
+msgid "One Sample T-Test Bayes Factor Function Summary Table"
+msgstr ""
+
+msgid "Independent Samples Z-Test Bayes Factor Function Summary Table"
+msgstr ""
+
+msgid "Independent Samples T-Test Bayes Factor Function Summary Table"
+msgstr ""
+
+msgid "Regression Bayes Factor Function Summary Table"
+msgstr ""
+
+msgid "ANOVA Bayes Factor Function Summary Table"
+msgstr ""
+
+msgid "Chi² Test Bayes Factor Function Summary Table"
+msgstr ""
+
+msgid "Prior Mode"
+msgstr ""
+
+msgid "Prior mode corresponds to %1$s."
+msgstr ""
+
+msgid "The Bayes factor function was estimated with prior dispersion r = %1$.2f."
+msgstr ""
+
+msgid "One Sample Z-Test Bayes Factor"
+msgstr ""
+
+msgid "One Sample T-Test Bayes Factor"
+msgstr ""
+
+msgid "Independent Samples Z-Test Bayes Factor"
+msgstr ""
+
+msgid "Independent Samples T-Test Bayes Factor"
+msgstr ""
+
+msgid "Regression Bayes Factor"
+msgstr ""
+
+msgid "ANOVA Bayes Factor"
+msgstr ""
+
+msgid "Chi² Test Bayes Factor"
+msgstr ""
+
+msgid "One Sample Z-Test Bayes Factor Function"
+msgstr ""
+
+msgid "One Sample T-Test Bayes Factor Function"
+msgstr ""
+
+msgid "Independent Samples Z-Test Bayes Factor Function"
+msgstr ""
+
+msgid "Independent Samples T-Test Bayes Factor Function"
+msgstr ""
+
+msgid "Regression Bayes Factor Function"
+msgstr ""
+
+msgid "ANOVA Bayes Factor Function"
+msgstr ""
+
+msgid "Chi² Test Bayes Factor Function"
+msgstr ""
+
+msgid "BFF"
+msgstr ""
+
+msgid "user prior"
+msgstr ""
+
+msgid "%1$s==%2$s~\"(at mode %3$s)\""
+msgstr ""
+
+msgid "Some Bayes factors were infinite"
+msgstr ""
+
+msgid "Prior mode (%1$s)"
+msgstr ""
+
+msgid "Prior and Posterior Plot"
+msgstr ""
+
+msgid "Cohen's d"
+msgstr ""
+
+msgid "Cohen's f"
+msgstr ""
+
+msgid "Cohen's w"
+msgstr ""
