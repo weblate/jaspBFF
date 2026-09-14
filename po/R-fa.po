@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: jaspBFF 0.96.3\n"
 "POT-Creation-Date: 2026-04-25 04:25\n"
-"PO-Revision-Date: 2026-09-14 02:32+0000\n"
+"PO-Revision-Date: 2026-09-15 04:02+0000\n"
 "Last-Translator: Sohrab Delshad <sdel4030@gmail.com>\n"
 "Language-Team: Persian <https://hosted.weblate.org/projects/jasp/jaspbff-r/"
 "fa/>\n"
@@ -14,100 +14,100 @@ msgstr ""
 "X-Generator: Weblate 2026.10.dev0\n"
 
 msgid "One Sample Z-Test Bayes Factor Function Summary Table"
-msgstr ""
+msgstr "جدول خلاصه تابع عامل بیز آزمون Z تک‌نمونه‌ای"
 
 msgid "One Sample T-Test Bayes Factor Function Summary Table"
-msgstr ""
+msgstr "جدول خلاصه تابع عامل بیز آزمون t تک‌نمونه‌ای"
 
 msgid "Independent Samples Z-Test Bayes Factor Function Summary Table"
-msgstr ""
+msgstr "جدول خلاصه تابع عامل بیز آزمون Z نمونه‌های مستقل"
 
 msgid "Independent Samples T-Test Bayes Factor Function Summary Table"
-msgstr ""
+msgstr "جدول خلاصه تابع عامل بیز آزمون t نمونه‌های مستقل"
 
 msgid "Regression Bayes Factor Function Summary Table"
-msgstr ""
+msgstr "جدول خلاصه تابع عامل بیز رگرسیون"
 
 msgid "ANOVA Bayes Factor Function Summary Table"
-msgstr ""
+msgstr "جدول خلاصه تابع عامل بیز تحلیل واریانس"
 
 msgid "Chi² Test Bayes Factor Function Summary Table"
-msgstr ""
+msgstr "جدول خلاصه تابع عامل بیز آزمون خی‌دو"
 
 msgid "Prior Mode"
-msgstr ""
+msgstr "مُد پیشین"
 
 msgid "Prior mode corresponds to %1$s."
-msgstr ""
+msgstr "مُد پیشین متناظر با %1$s است."
 
 msgid "The Bayes factor function was estimated with prior dispersion r = %1$.2f."
-msgstr ""
+msgstr "تابع عامل بیز با پراکندگی پیشین r = %1$.2f برآورد شده است."
 
 msgid "One Sample Z-Test Bayes Factor"
-msgstr ""
+msgstr "عامل بیز آزمون Z تک‌نمونه‌ای"
 
 msgid "One Sample T-Test Bayes Factor"
-msgstr ""
+msgstr "عامل بیز آزمون t تک‌نمونه‌ای"
 
 msgid "Independent Samples Z-Test Bayes Factor"
-msgstr ""
+msgstr "عامل بیز آزمون Z نمونه‌های مستقل"
 
 msgid "Independent Samples T-Test Bayes Factor"
-msgstr ""
+msgstr "عامل بیز آزمون t نمونه‌های مستقل"
 
 msgid "Regression Bayes Factor"
-msgstr ""
+msgstr "عامل بیز رگرسیون"
 
 msgid "ANOVA Bayes Factor"
-msgstr ""
+msgstr "عامل بیز تحلیل واریانس"
 
 msgid "Chi² Test Bayes Factor"
-msgstr ""
+msgstr "عامل بیز آزمون خی‌دو"
 
 msgid "One Sample Z-Test Bayes Factor Function"
-msgstr ""
+msgstr "تابع عامل بیز آزمون Z تک‌نمونه‌ای"
 
 msgid "One Sample T-Test Bayes Factor Function"
-msgstr ""
+msgstr "تابع عامل بیز آزمون t تک‌نمونه‌ای"
 
 msgid "Independent Samples Z-Test Bayes Factor Function"
-msgstr ""
+msgstr "تابع عامل بیز آزمون Z نمونه‌های مستقل"
 
 msgid "Independent Samples T-Test Bayes Factor Function"
-msgstr ""
+msgstr "تابع عامل بیز آزمون t نمونه‌های مستقل"
 
 msgid "Regression Bayes Factor Function"
-msgstr ""
+msgstr "تابع عامل بیز رگرسیون"
 
 msgid "ANOVA Bayes Factor Function"
-msgstr ""
+msgstr "تابع عامل بیز تحلیل واریانس"
 
 msgid "Chi² Test Bayes Factor Function"
-msgstr ""
+msgstr "تابع عامل بیز آزمون خی‌دو"
 
 msgid "BFF"
-msgstr ""
+msgstr "BFF"
 
 msgid "user prior"
-msgstr ""
+msgstr "پیشین کاربر"
 
 msgid "%1$s==%2$s~\"(at mode %3$s)\""
-msgstr ""
+msgstr "%1$s==%2$s~\"(در مُد %3$s)\""
 
 msgid "Some Bayes factors were infinite"
-msgstr ""
+msgstr "برخی فاکتورهای بیزی بی‌نهایت بودند"
 
 msgid "Prior mode (%1$s)"
-msgstr ""
+msgstr "مُد پیشین (%1$s)"
 
 msgid "Prior and Posterior Plot"
-msgstr ""
+msgstr "نمودار پیشین و پسین"
 
 msgid "Cohen's d"
 msgstr "d کوهن"
 
 msgid "Cohen's f"
-msgstr ""
+msgstr "f کوهن"
 
 msgid "Cohen's w"
-msgstr ""
+msgstr "w کوهن"
