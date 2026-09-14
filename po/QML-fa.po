@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2026-09-14 02:28+0000\n"
+"PO-Revision-Date: 2026-09-15 03:59+0000\n"
 "Last-Translator: Sohrab Delshad <sdel4030@gmail.com>\n"
 "Language-Team: Persian <https://hosted.weblate.org/projects/jasp/jaspbff-qml/"
 "fa/>\n"
@@ -14,200 +14,200 @@ msgstr ""
 
 msgctxt "Description|"
 msgid "This module offers Bayes factor functions."
-msgstr ""
+msgstr "این ماژول توابع عامل بیز را ارائه می‌دهد."
 
 msgctxt "Description|"
 msgid "T-Tests"
-msgstr ""
+msgstr "آزمون‌های t"
 
 msgctxt "Description|"
 msgid "One Sample T-Test"
-msgstr ""
+msgstr "آزمون t تک‌نمونه‌ای"
 
 msgctxt "Description|"
 msgid "Independent Samples T-Test"
-msgstr ""
+msgstr "آزمون t نمونه‌های مستقل"
 
 msgctxt "Description|"
 msgid "Regression"
-msgstr ""
+msgstr "رگرسیون"
 
 msgctxt "Description|"
 msgid "ANOVA"
-msgstr "تحلیل واریانس (ANOVA)"
+msgstr "تحلیل واریانس"
 
 msgctxt "Description|"
 msgid "Frequencies"
-msgstr ""
+msgstr "فراوانی‌ها"
 
 msgctxt "Description|"
 msgid "Chi² Test"
-msgstr ""
+msgstr "آزمون خی‌دو"
 
 msgctxt "bffANOVA|"
 msgid "F-statistic"
-msgstr ""
+msgstr "آماره F"
 
 msgctxt "bffANOVA|"
 msgid "Degrees of freedom 1"
-msgstr ""
+msgstr "درجه آزادی ۱"
 
 msgctxt "bffANOVA|"
 msgid "Degrees of freedom 2"
-msgstr ""
+msgstr "درجه آزادی ۲"
 
 msgctxt "bffBinomialTest|"
 msgid "Z-Statistic"
-msgstr ""
+msgstr "آماره Z"
 
 msgctxt "bffBinomialTest|"
 msgid "Sample Size"
-msgstr ""
+msgstr "اندازه نمونه"
 
 msgctxt "bffChi2|"
 msgid "Chi² statistic"
-msgstr ""
+msgstr "آماره خی‌دو"
 
 msgctxt "bffChi2|"
 msgid "Sample size"
-msgstr ""
+msgstr "اندازه نمونه"
 
 msgctxt "bffCorrelation|"
 msgid "T-Statistic"
-msgstr ""
+msgstr "آماره t"
 
 msgctxt "bffCorrelation|"
 msgid "Sample Size"
-msgstr ""
+msgstr "اندازه نمونه"
 
 msgctxt "bffIndependentSamplesTTest|"
 msgid "T-statistic"
-msgstr ""
+msgstr "آماره t"
 
 msgctxt "bffIndependentSamplesTTest|"
 msgid "Sample size group 1"
-msgstr ""
+msgstr "اندازه نمونه گروه ۱"
 
 msgctxt "bffIndependentSamplesTTest|"
 msgid "Sample size group 2"
-msgstr ""
+msgstr "اندازه نمونه گروه ۲"
 
 msgctxt "bffIndependentSamplesZTest|"
 msgid "Z-statistic"
-msgstr ""
+msgstr "آماره Z"
 
 msgctxt "bffIndependentSamplesZTest|"
 msgid "Sample size group 1"
-msgstr ""
+msgstr "اندازه نمونه گروه ۱"
 
 msgctxt "bffIndependentSamplesZTest|"
 msgid "Sample size group 2"
-msgstr ""
+msgstr "اندازه نمونه گروه ۲"
 
 msgctxt "bffOneSampleTTest|"
 msgid "T-statistic"
-msgstr ""
+msgstr "آماره t"
 
 msgctxt "bffOneSampleTTest|"
 msgid "Sample size"
-msgstr ""
+msgstr "اندازه نمونه"
 
 msgctxt "bffOneSampleZTest|"
 msgid "Z-statistic"
-msgstr ""
+msgstr "آماره Z"
 
 msgctxt "bffOneSampleZTest|"
 msgid "Sample size"
-msgstr ""
+msgstr "اندازه نمونه"
 
 msgctxt "bffRegression|"
 msgid "T-statistic"
-msgstr ""
+msgstr "آماره t"
 
 msgctxt "bffRegression|"
 msgid "Sample size"
-msgstr ""
+msgstr "اندازه نمونه"
 
 msgctxt "bffRegression|"
 msgid "Predictors"
-msgstr ""
+msgstr "پیش‌بین‌ها"
 
 msgctxt "Analysis|"
 msgid "Analysis"
-msgstr ""
+msgstr "تحلیل"
 
 msgctxt "Analysis|"
 msgid "Alternative Hypothesis"
-msgstr ""
+msgstr "فرض مقابل"
 
 msgctxt "Analysis|"
 msgid "Group 1 ≠ Group 2"
-msgstr ""
+msgstr "گروه ۱ ≠ گروه ۲"
 
 msgctxt "Analysis|"
 msgid "Group 1 > Group 2"
-msgstr ""
+msgstr "گروه ۱ > گروه ۲"
 
 msgctxt "Analysis|"
 msgid "Group 1 < Group 2"
-msgstr ""
+msgstr "گروه ۱ < گروه ۲"
 
 msgctxt "Analysis|"
 msgid "Bayes factor with prior mode"
-msgstr ""
+msgstr "عامل بیز با مُد پیشین"
 
 msgctxt "Analysis|"
 msgid "Plots"
-msgstr ""
+msgstr "نمودارها"
 
 msgctxt "Analysis|"
 msgid "Bayes factor function"
-msgstr ""
+msgstr "تابع عامل بیز"
 
 msgctxt "Analysis|"
 msgid "Additional info"
-msgstr ""
+msgstr "اطلاعات اضافی"
 
 msgctxt "Priors|"
 msgid "Priors"
-msgstr ""
+msgstr "پیشین‌ها"
 
 msgctxt "Priors|"
 msgid "Prior dispersion r"
-msgstr ""
+msgstr "پراکندگی پیشین r"
 
 msgctxt "Description|"
 msgid "Bayes Factor Functions"
-msgstr ""
+msgstr "توابع عامل بیز"
 
 msgctxt "bffANOVA|"
 msgid "Sample size"
-msgstr ""
+msgstr "اندازه نمونه"
 
 msgctxt "bffChi2|"
 msgid "Degrees of freedom"
-msgstr ""
+msgstr "درجه‌های آزادی"
 
 msgctxt "Analysis|"
 msgid "Group 1 ≠ 0"
-msgstr ""
+msgstr "گروه ۱ ≠ ۰"
 
 msgctxt "Analysis|"
 msgid "Group 1 > 0"
-msgstr ""
+msgstr "گروه ۱ > ۰"
 
 msgctxt "Analysis|"
 msgid "Group 1 < 0"
-msgstr ""
+msgstr "گروه ۱ < ۰"
 
 msgctxt "Description|"
 msgid "Z-Tests"
-msgstr ""
+msgstr "آزمون‌های Z"
 
 msgctxt "Description|"
 msgid "One Sample Z-Test"
-msgstr ""
+msgstr "آزمون Z تک‌نمونه‌ای"
 
 msgctxt "Description|"
 msgid "Independent Samples Z-Test"
-msgstr ""
+msgstr "آزمون Z نمونه‌های مستقل"
