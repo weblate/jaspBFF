@@ -6,6 +6,12 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Language: zh_Hans\n"
 "X-Qt-Contexts: true\n"
+"PO-Revision-Date: 2026-10-25 12:51+0000\n"
+"Last-Translator: Shun Wang <shuonwang@gmail.com>\n"
+"Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
+"projects/jasp/jaspbff-qml/zh_Hans/>\n"
+"Language: zh_Hans\n"
+"X-Generator: Weblate 2026.11.dev0\n"
 
 msgctxt "Description|"
 msgid "This module offers Bayes factor functions."
@@ -17,15 +23,15 @@ msgstr "T 检验"
 
 msgctxt "Description|"
 msgid "One Sample T-Test"
-msgstr "单样本 T 检验"
+msgstr "单样本 t 检验"
 
 msgctxt "Description|"
 msgid "Independent Samples T-Test"
-msgstr "独立样本 T 检验"
+msgstr "独立样本 t 检验"
 
 msgctxt "Description|"
 msgid "Regression"
-msgstr "回归"
+msgstr "回归分析"
 
 msgctxt "Description|"
 msgid "ANOVA"
@@ -103,27 +109,22 @@ msgctxt "bffOneSampleTTest|"
 msgid "T-statistic"
 msgstr "T 统计量"
 
-#, fuzzy
 msgctxt "bffOneSampleTTest|"
 msgid "Sample size"
 msgstr "样本量"
 
-#, fuzzy
 msgctxt "bffOneSampleZTest|"
 msgid "Z-statistic"
 msgstr "Z 统计量"
 
-#, fuzzy
 msgctxt "bffOneSampleZTest|"
 msgid "Sample size"
 msgstr "样本量"
 
-#, fuzzy
 msgctxt "bffRegression|"
 msgid "T-statistic"
-msgstr "T 统计量"
+msgstr "t 统计量"
 
-#, fuzzy
 msgctxt "bffRegression|"
 msgid "Sample size"
 msgstr "样本量"
@@ -180,7 +181,6 @@ msgctxt "Description|"
 msgid "Bayes Factor Functions"
 msgstr "贝叶斯因子函数"
 
-#, fuzzy
 msgctxt "bffANOVA|"
 msgid "Sample size"
 msgstr "样本量"
